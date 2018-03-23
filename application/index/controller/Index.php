@@ -1,6 +1,8 @@
 <?php
 namespace app\index\controller;
 
+use think\facade\Env;
+
 class Index
 {
     public function index()

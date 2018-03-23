@@ -1,0 +1,13 @@
+<html>
+<head>
+</head>
+<body>
+Hello,{$name} -- {$city}!
+<ul>
+    {volist name="list" id="vo"}
+    <li>{$vo.user_name}</li>
+    {/volist}
+</ul>
+<p>{$page|raw}</p>
+</body>
+</html>

@@ -18,7 +18,7 @@ return [
     'app_name'               => '',
     // 应用地址
     'app_host'               => '',
-    // 应用调试模式
+    // 应用调试模式  正式部署务必改成 false 或则 .env里设置 ++++++++++++++++++++
     'app_debug'              => false,
     // 应用Trace
     'app_trace'              => false,
@@ -29,9 +29,18 @@ return [
     // 入口自动绑定模块
     'auto_bind_module'       => false,
     // 注册的根命名空间
-    'root_namespace'         => [],
+    'root_namespace'         => [
+            // 'models'     => SYSTEM_PATH . 'models',
+            // 'services'   => SYSTEM_PATH . 'services',
+            // 'librarys'   => SYSTEM_PATH . 'librarys',
+            // 'helpers'    => SYSTEM_PATH . 'helpers',
+            'models'     => __DIR__ . '/../models',
+            'services'   => __DIR__ . '/../services',
+            'librarys'   => __DIR__ . '/../librarys',
+            'helpers'    => __DIR__ . '/../helpers',
+    ],
     // 默认输出类型
-    'default_return_type'    => 'html',
+    'default_return_type'    => 'json',
     // 默认AJAX 数据返回格式,可选json xml ...
     'default_ajax_return'    => 'json',
     // 默认JSONP格式返回的处理方法
@@ -43,7 +52,7 @@ return [
     // 是否开启多语言
     'lang_switch_on'         => false,
     // 默认全局过滤方法 用逗号分隔多个
-    'default_filter'         => '',
+    'default_filter'         => 'strip_tags,htmlspecialchars',
     // 默认语言
     'default_lang'           => 'zh-cn',
     // 应用类库后缀
@@ -89,7 +98,7 @@ return [
     // HTTPS代理标识
     'https_agent_name'       => '',
     // URL伪静态后缀
-    'url_html_suffix'        => 'html',
+    'url_html_suffix'        => 'html|shtml|xml',
     // URL普通方式参数 用于自动生成
     'url_common_param'       => false,
     // URL参数方式 0 按名称成对解析 1 按顺序解析
@@ -133,6 +142,14 @@ return [
     // 显示错误信息
     'show_error_msg'         => false,
     // 异常处理handle类 留空使用 \think\exception\Handle
-    'exception_handle'       => '',
+    'exception_handle'       => '\\app\\common\\exception\\Http',
+    
+    // 部署模式下 'app_debug' => false 时生效 或则 .env里设置
+    'http_exception_template'    =>  [
+    // 定义404错误的模板文件地址
+    404 =>  Env::get('app_path') . '404.html',
+    // 还可以定义其它的HTTP status
+    401 =>  Env::get('app_path') . '401.html',
+]
 
 ];
